@@ -35,17 +35,15 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       this.cartSubscription.unsubscribe();
     }
   }
-
-  updateQuantity(index: number, quantity: number): void {
-    this.cartService.updateQuantity(index, quantity);
+  updateQuantity(cartItemId: number, quantity: number): void {
+    this.cartService.updateCartItem(cartItemId, quantity).subscribe();
   }
 
-  removeItem(index: number): void {
-    this.cartService.removeFromCart(index);
+  removeItem(cartItemId: number): void {
+    this.cartService.removeFromCart(cartItemId).subscribe();
   }
-
   clearCart(): void {
-    this.cartService.clearCart();
+    this.cartService.clearCart().subscribe();
   }
 
   calculateItemTotal(item: CartItem): number {
