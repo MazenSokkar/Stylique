@@ -93,16 +93,23 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   changeImage(imageUrl: string): void {
     this.selectedImage = imageUrl;
   }
-
   addToCart(): void {
     if (this.product && this.selectedSize && this.selectedColor) {
-      this.cartService.addToCart(
-        this.product,
-        this.quantity,
-        this.selectedSize,
-        this.selectedColor
-      );
-      // You could add a notification toast here in a real application
+      this.cartService
+        .addToCart(
+          this.product,
+          this.quantity,
+          this.selectedSize,
+          this.selectedColor
+        )
+        .subscribe({
+          next: () => {
+            // Success handling - you could add a notification toast here in a real application
+          },
+          error: (error) => {
+            console.error('Error adding item to cart', error);
+          },
+        });
     }
   }
 
