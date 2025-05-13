@@ -1,0 +1,100 @@
+<div class="shopping-cart-container">
+    <div class="container">
+        <div class="page-header">
+            <h1>Shopping Cart</h1>
+        </div>
+
+        @if (cart.items.length === 0) {
+        <div class="empty-cart">
+            <div class="empty-cart-message">
+                <i class="empty-cart-icon">🛒</i>
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added any items to your cart yet.</p>
+                <a routerLink="/products" class="continue-shopping-btn">Continue Shopping</a>
+            </div>
+        </div>
+        } @else {
+        <div class="cart-content">
+            <div class="cart-items">
+                <div class="cart-header">
+                    <div class="product-col">Product</div>
+                    <div class="price-col">Price</div>
+                    <div class="quantity-col">Quantity</div>
+                    <div class="total-col">Total</div>
+                    <div class="action-col"></div>
+                </div>
+
+                @for (item of cart.items; track item; let i = $index) {
+                <div class="cart-item">
+                    <div class="product-col">
+                        <div class="product-info">
+                            <div class="product-image">
+                                <img [src]="item.product.imageUrl || 'assets/images/placeholder.jpg'"
+                                    [alt]="item.product.name">
+                            </div>
+                            <div class="product-details">
+                                <h3><a [routerLink]="['/product', item.product.id]">{{ item.product.name }}</a></h3>
+                                <div class="product-options">
+                                    <span class="option">Size: {{ item.selectedSize }}</span>
+                                    <span class="option">Color: {{ item.selectedColor }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-col">
+                        @if (item.product.discountPercentage) {
+                        <div class="original-price">${{ item.product.price.toFixed(2) }}</div>
+                        <div class="discounted-price">${{ (item.product.price * (1 - item.product.discountPercentage /
+                            100)).toFixed(2) }}</div>
+                        } @else {
+                        <div class="price">${{ item.product.price.toFixed(2) }}</div>
+                        }
+                    </div>
+
+                    <div class="quantity-col">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" (click)="updateQuantity(i, item.quantity - 1)">-</button>
+                            <input type="number" [value]="item.quantity" min="1" readonly>
+                            <button class="quantity-btn" (click)="updateQuantity(i, item.quantity + 1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="total-col">
+                        <div class="price">${{ calculateItemTotal(item).toFixed(2) }}</div>
+                    </div>
+
+                    <div class="action-col">
+                        <button class="remove-btn" (click)="removeItem(i)">
+                            <span class="remove-icon">🗑️</span>
+                        </button>
+                    </div>
+                </div>
+                }
+
+                <div class="cart-actions">
+                    <button class="clear-cart-btn" (click)="clearCart()">Clear Cart</button>
+                    <a routerLink="/products" class="continue-shopping-btn">Continue Shopping</a>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Items ({{ cart.totalItems }})</span>
+                    <span>${{ cart.totalPrice.toFixed(2) }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>${{ cart.totalPrice.toFixed(2) }}</span>
+                </div>
+                <button class="checkout-btn" (click)="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>

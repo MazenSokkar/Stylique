@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #d48a6e;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: darken(#d48a6e, 10%);
+  }
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
+  
+  &.btn-primary {
+    background-color: #d48a6e;
+    color: white;
+    border: 1px solid #d48a6e;
+    
+    &:hover {
+      background-color: darken(#d48a6e, 10%);
+      border-color: darken(#d48a6e, 10%);
+    }
+  }
+  
+  &.btn-outline {
+    background-color: transparent;
+    border: 1px solid #d48a6e;
+    color: #d48a6e;
+    
+    &:hover {
+      background-color: #d48a6e;
+      color: white;
+    }
+  }
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Font imports - Uncomment if using web fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap'); */
+
+/* For placeholder images during development */
+.placeholder-img {
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+.mb-5 {
+  margin-bottom: 3rem;
+}
+
+/* Add placeholder image styling for development */
+img[src='assets/images/placeholder.jpg'],
+img[src$='.jpg'],
+img[src$='.png'] {
+  background-color: #f8f8f8;
+  color: transparent;
+}

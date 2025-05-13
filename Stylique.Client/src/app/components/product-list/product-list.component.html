@@ -1,0 +1,142 @@
+<div class="product-list-container">
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ filter.category ? (filter.category | titlecase) : 'All Products' }}</h1>
+        </div>
+
+        <div class="product-section">
+            <!-- Filter Sidebar -->
+            <div class="filter-sidebar">
+                <div class="filter-header">
+                    <h2>Filters</h2>
+                    <button class="reset-btn" (click)="resetFilters()">Reset</button>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="filter-group">
+                    <h3>Categories</h3>
+                    <ul class="category-list">
+                        <li>
+                            <button [class.active]="!filter.category" (click)="onCategoryChange(undefined)">
+                                All Products
+                            </button>
+                        </li>
+                        @for (category of categories; track category) {
+                        <li>
+                            <button [class.active]="filter.category === category" (click)="onCategoryChange(category)">
+                                {{ category | titlecase }}
+                            </button>
+                        </li>
+                        }
+                    </ul>
+                </div>
+
+                <!-- Size Filter -->
+                <div class="filter-group">
+                    <h3>Size</h3>
+                    <div class="size-options">
+                        @for (size of availableSizes; track size) {
+                        <div class="size-option">
+                            <input type="checkbox" [id]="'size-' + size" [checked]="isSizeSelected(size)"
+                                (change)="onSizeChange(size)">
+                            <label [for]="'size-' + size">{{ size }}</label>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Color Filter -->
+                <div class="filter-group">
+                    <h3>Color</h3>
+                    <div class="color-options">
+                        @for (color of availableColors; track color) {
+                        <div class="color-option">
+                            <input type="checkbox" [id]="'color-' + color" [checked]="isColorSelected(color)"
+                                (change)="onColorChange(color)">
+                            <label [for]="'color-' + color">{{ color }}</label>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Price Range Filter -->
+                <div class="filter-group">
+                    <h3>Price Range</h3>
+                    <div class="price-range">
+                        <div class="range-values">
+                            <span>${{ minPrice }}</span>
+                            <span>${{ maxPrice }}</span>
+                        </div>
+                        <div class="range-inputs">
+                            <input type="range" [min]="0" [max]="200" [step]="10" [(ngModel)]="minPrice"
+                                (change)="onPriceRangeChange()">
+                            <input type="range" [min]="0" [max]="200" [step]="10" [(ngModel)]="maxPrice"
+                                (change)="onPriceRangeChange()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid-container">
+                <div class="product-controls">
+                    <div class="product-count">{{ filteredProducts.length }} products found</div>
+                    <div class="sort-control">
+                        <label for="sort-select">Sort by:</label>
+                        <select id="sort-select" (change)="onSortChange($event)">
+                            <option value="name-asc">Name: A-Z</option>
+                            <option value="name-desc">Name: Z-A</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                @if (filteredProducts.length === 0) {
+                <div class="no-products">
+                    <p>No products match your current filters.</p>
+                    <button class="btn" (click)="resetFilters()">Clear Filters</button>
+                </div>
+                } @else {
+                <div class="product-grid">
+                    @for (product of filteredProducts; track product.id) {
+                    <div class="product-card">
+                        <div class="product-image">
+                            <a [routerLink]="['/product', product.id]">
+                                <img [src]="product.imageUrl || 'assets/images/placeholder.jpg'" [alt]="product.name">
+                                @if (product.discountPercentage) {
+                                <div class="discount-badge">-{{ product.discountPercentage }}%</div>
+                                }
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">
+                                <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+                            </h3>
+                            <div class="product-category">{{ product.category | titlecase }}</div>
+                            <div class="product-price">
+                                @if (product.discountPercentage) {
+                                <span class="original-price">${{ product.price.toFixed(2) }}</span>
+                                <span class="discounted-price">${{ (product.price * (1 - product.discountPercentage /
+                                    100)).toFixed(2) }}</span>
+                                } @else {
+                                <span>${{ product.price.toFixed(2) }}</span>
+                                }
+                            </div>
+                            <div class="product-colors">
+                                @for (color of product.colors.slice(0, 3); track color) {
+                                <div class="color-dot" [title]="color"></div>
+                                }
+                                @if (product.colors.length > 3) {
+                                <div class="more-colors">+{{ product.colors.length - 3 }}</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

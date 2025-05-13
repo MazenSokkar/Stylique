@@ -1,0 +1,134 @@
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elevate Your Style</h1>
+            <p>Discover the latest trends in fashion at Chic Boutique</p>
+            <a routerLink="/products" class="shop-now-btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Collection</h2>
+                <p>Handpicked styles just for you</p>
+            </div>
+
+            <div class="product-grid">
+                @for (product of featuredProducts; track product.id) {
+                <div class="product-card">
+                    <div class="product-image">
+                        <a [routerLink]="['/product', product.id]">
+                            <img [src]="product.imageUrl || 'assets/images/placeholder.jpg'" [alt]="product.name">
+                            @if (product.discountPercentage) {
+                            <div class="discount-badge">-{{ product.discountPercentage }}%</div>
+                            }
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">
+                            <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+                        </h3>
+                        <div class="product-category">{{ product.category | titlecase }}</div>
+                        <div class="product-price">
+                            @if (product.discountPercentage) {
+                            <span class="original-price">${{ product.price.toFixed(2) }}</span>
+                            <span class="discounted-price">${{ calculateDiscountedPrice(product.price,
+                                product.discountPercentage).toFixed(2) }}</span>
+                            } @else {
+                            <span>${{ product.price.toFixed(2) }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Banner -->
+    <section class="categories-banner">
+        <div class="container">
+            <div class="banners-grid">
+                <div class="banner">
+                    <div class="banner-content">
+                        <h3>Women's Collection</h3>
+                        <a routerLink="/products" class="banner-link">Shop Now</a>
+                    </div>
+                </div>
+                <div class="banner">
+                    <div class="banner-content">
+                        <h3>New Arrivals</h3>
+                        <a routerLink="/products" class="banner-link">Shop Now</a>
+                    </div>
+                </div>
+                <div class="banner">
+                    <div class="banner-content">
+                        <h3>Accessories</h3>
+                        <a routerLink="/products/accessories" class="banner-link">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="new-arrivals">
+        <div class="container">
+            <div class="section-header">
+                <h2>New Arrivals</h2>
+                <p>The latest additions to our collection</p>
+            </div>
+
+            <div class="product-grid">
+                @for (product of newArrivals; track product.id) {
+                <div class="product-card">
+                    <div class="product-image">
+                        <a [routerLink]="['/product', product.id]">
+                            <img [src]="product.imageUrl || 'assets/images/placeholder.jpg'" [alt]="product.name">
+                            @if (product.discountPercentage) {
+                            <div class="discount-badge">-{{ product.discountPercentage }}%</div>
+                            }
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">
+                            <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+                        </h3>
+                        <div class="product-category">{{ product.category | titlecase }}</div>
+                        <div class="product-price">
+                            @if (product.discountPercentage) {
+                            <span class="original-price">${{ product.price.toFixed(2) }}</span>
+                            <span class="discounted-price">${{ calculateDiscountedPrice(product.price,
+                                product.discountPercentage).toFixed(2) }}</span>
+                            } @else {
+                            <span>${{ product.price.toFixed(2) }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="view-all">
+                <a routerLink="/products" class="view-all-btn">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Be the first to know about new arrivals, sales, and exclusive offers</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,66 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "W:\\.NET\\projects\\Stylique\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8882B746-2E94-4731-AB69-16423A4A489C}|Stylique.Infrastructure\\Stylique.Infrastructure.csproj|w:\\.net\\projects\\stylique\\stylique.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8882B746-2E94-4731-AB69-16423A4A489C}|Stylique.Infrastructure\\Stylique.Infrastructure.csproj|solutionrelative:stylique.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCF7C9D4-66F6-43C7-AB33-710EE957F68E}|Stylique.Core\\Stylique.Core.csproj|w:\\.net\\projects\\stylique\\stylique.core\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCF7C9D4-66F6-43C7-AB33-710EE957F68E}|Stylique.Core\\Stylique.Core.csproj|solutionrelative:stylique.core\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "W:\\.NET\\projects\\Stylique\\Stylique.Infrastructure\\Class1.cs",
+              "RelativeDocumentMoniker": "Stylique.Infrastructure\\Class1.cs",
+              "ToolTip": "W:\\.NET\\projects\\Stylique\\Stylique.Infrastructure\\Class1.cs",
+              "RelativeToolTip": "Stylique.Infrastructure\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T08:37:02.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "W:\\.NET\\projects\\Stylique\\Stylique.Core\\Class1.cs",
+              "RelativeDocumentMoniker": "Stylique.Core\\Class1.cs",
+              "ToolTip": "W:\\.NET\\projects\\Stylique\\Stylique.Core\\Class1.cs",
+              "RelativeToolTip": "Stylique.Core\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T08:36:30.898Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

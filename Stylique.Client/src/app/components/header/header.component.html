@@ -1,0 +1,40 @@
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a routerLink="/">Chic Boutique</a>
+            </div>
+
+            <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav" [class.active]="isMenuOpen">
+                <ul class="nav-list">
+                    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                    </li>
+                    @for (category of categories; track category) {
+                    <li>
+                        <a [routerLink]="['/products', category]" routerLinkActive="active">
+                            {{ category | titlecase }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </nav>
+
+            <div class="cart-icon">
+                <a routerLink="/cart">
+                    <i class="shopping-bag">🛍️</i>
+                    @if (cart$ | async; as cart) {
+                    @if (cart.totalItems > 0) {
+                    <span class="cart-count">{{ cart.totalItems }}</span>
+                    }
+                    }
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
