@@ -95,30 +95,40 @@ export class ProductListComponent implements OnInit, OnDestroy {
     // Clean up subscriptions to prevent memory leaks
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
   applyFilters(): void {
     // Apply price filters if set
     if (this.minPrice > 0) {
       this.filter.minPrice = this.minPrice;
+    } else {
+      delete this.filter.minPrice;
     }
 
     if (this.maxPrice < 200) {
       this.filter.maxPrice = this.maxPrice;
+    } else {
+      delete this.filter.maxPrice;
     }
+
+    console.log(
+      'Applying filters:',
+      this.filter,
+      'with sort option:',
+      this.sortOption
+    );
 
     this.productService
       .filterProducts(this.filter, this.sortOption)
       .subscribe((filtered) => {
         this.filteredProducts = filtered;
+        console.log('Filtered products count:', this.filteredProducts.length);
       });
   }
-
   onSortChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.sortOption = select.value as SortOption;
+    console.log('Sort option changed to:', this.sortOption);
     this.applyFilters();
   }
-
   onCategoryChange(category: string | undefined): void {
     this.filter.category = category;
 
@@ -129,9 +139,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.router.navigate(['/products']);
     }
 
+    console.log('Category changed to:', category);
     this.applyFilters();
   }
-
   onSizeChange(size: string): void {
     if (!this.filter.sizes) {
       this.filter.sizes = [];
@@ -146,6 +156,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.filter.sizes.splice(index, 1);
     }
 
+    // If no sizes selected, remove the filter altogether
+    if (this.filter.sizes.length === 0) {
+      delete this.filter.sizes;
+    }
+
+    console.log('Size filter updated:', this.filter.sizes);
     this.applyFilters();
   }
 
@@ -163,27 +179,40 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.filter.colors.splice(index, 1);
     }
 
+    // If no colors selected, remove the filter altogether
+    if (this.filter.colors.length === 0) {
+      delete this.filter.colors;
+    }
+
+    console.log('Color filter updated:', this.filter.colors);
     this.applyFilters();
   }
 
   onPriceRangeChange(): void {
     this.applyFilters();
   }
-
   resetFilters(): void {
     this.filter = {};
     this.sortOption = 'name-asc';
     this.minPrice = 0;
     this.maxPrice = 200;
     this.router.navigate(['/products']);
-    this.applyFilters();
-  }
 
+    // If we have products loaded, apply filters directly, otherwise fetch products
+    if (this.products.length > 0) {
+      this.applyFilters();
+    } else {
+      this.productService.getProducts().subscribe((products) => {
+        this.products = products;
+        this.filteredProducts = [...products];
+      });
+    }
+  }
   isSizeSelected(size: string): boolean {
-    return this.filter.sizes?.includes(size) || false;
+    return !!this.filter.sizes?.includes(size);
   }
 
   isColorSelected(color: string): boolean {
-    return this.filter.colors?.includes(color) || false;
+    return !!this.filter.colors?.includes(color);
   }
 }

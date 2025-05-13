@@ -10,10 +10,9 @@
                 <div class="filter-header">
                     <h2>Filters</h2>
                     <button class="reset-btn" (click)="resetFilters()">Reset</button>
-                </div>
-
-                <!-- Category Filter -->
+                </div> <!-- Category Filter -->
                 <div class="filter-group">
+                    <h3>Categories</h3>
                     <ul class="category-list">
                         <li>
                             <button [class.active]="!filter.category" (click)="onCategoryChange(undefined)">
@@ -82,7 +81,7 @@
                     <div class="product-count">{{ filteredProducts.length }} products found</div>
                     <div class="sort-control">
                         <label for="sort-select">Sort by:</label>
-                        <select id="sort-select" (change)="onSortChange($event)">
+                        <select id="sort-select" (change)="onSortChange($event)" [value]="sortOption">
                             <option value="name-asc">Name: A-Z</option>
                             <option value="name-desc">Name: Z-A</option>
                             <option value="price-asc">Price: Low to High</option>

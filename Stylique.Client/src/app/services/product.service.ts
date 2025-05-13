@@ -18,9 +18,75 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl).pipe(
       catchError((error) => {
         console.error('Error fetching products', error);
-        return throwError(
-          () => new Error('Failed to fetch products. Please try again later.')
-        );
+        // Return fallback products if API call fails
+        return of([
+          {
+            id: 1,
+            name: 'Classic White Blouse',
+            description:
+              'A timeless white blouse made from lightweight cotton with a relaxed fit and button-up front.',
+            price: 49.99,
+            imageUrl: 'assets/images/placeholder.jpg',
+            category: 'tops',
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            colors: ['White', 'Blue', 'Black'],
+            inStock: true,
+            featured: true,
+          },
+          {
+            id: 2,
+            name: 'Vintage Denim Jeans',
+            description:
+              'High-waisted vintage denim jeans with a straight leg cut and classic five-pocket styling.',
+            price: 79.99,
+            imageUrl: 'assets/images/placeholder.jpg',
+            category: 'bottoms',
+            sizes: ['S', 'M', 'L'],
+            colors: ['Blue', 'Black', 'Light Wash'],
+            inStock: true,
+            featured: false,
+          },
+          {
+            id: 3,
+            name: 'Summer Floral Dress',
+            description:
+              'Light and airy floral print dress, perfect for summer days.',
+            price: 59.99,
+            imageUrl: 'assets/images/placeholder.jpg',
+            category: 'dresses',
+            sizes: ['XS', 'S', 'M', 'L'],
+            colors: ['Pink', 'Blue', 'Yellow'],
+            inStock: true,
+            featured: true,
+          },
+          {
+            id: 4,
+            name: 'Leather Tote Bag',
+            description:
+              'Spacious leather tote bag with multiple compartments for everyday use.',
+            price: 129.99,
+            imageUrl: 'assets/images/placeholder.jpg',
+            category: 'accessories',
+            sizes: ['One Size'],
+            colors: ['Brown', 'Black', 'Navy'],
+            inStock: true,
+            featured: false,
+          },
+          {
+            id: 5,
+            name: 'Wool Peacoat',
+            description:
+              'Classic wool peacoat to keep you warm during colder months.',
+            price: 149.99,
+            imageUrl: 'assets/images/placeholder.jpg',
+            category: 'outerwear',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Navy', 'Gray', 'Black'],
+            inStock: true,
+            featured: false,
+            discountPercentage: 15,
+          },
+        ]);
       })
     );
   }
@@ -29,11 +95,15 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(
       catchError((error) => {
         console.error(`Error fetching product with id ${id}`, error);
-        return throwError(
-          () =>
-            new Error(
-              'Failed to fetch product details. Please try again later.'
-            )
+        // Try to get the product from our local cache
+        return this.getProducts().pipe(
+          map((products) => {
+            const product = products.find((p) => p.id === id);
+            if (product) {
+              return product;
+            }
+            throw new Error('Product not found');
+          })
         );
       })
     );
@@ -43,11 +113,9 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/category/${category}`).pipe(
       catchError((error) => {
         console.error(`Error fetching products in category ${category}`, error);
-        return throwError(
-          () =>
-            new Error(
-              'Failed to fetch category products. Please try again later.'
-            )
+        // Fall back to filtering from all products
+        return this.getProducts().pipe(
+          map((products) => products.filter((p) => p.category === category))
         );
       })
     );
@@ -57,11 +125,9 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/featured`).pipe(
       catchError((error) => {
         console.error('Error fetching featured products', error);
-        return throwError(
-          () =>
-            new Error(
-              'Failed to fetch featured products. Please try again later.'
-            )
+        // Fall back to filtering from all products
+        return this.getProducts().pipe(
+          map((products) => products.filter((p) => p.featured))
         );
       })
     );
@@ -71,14 +137,13 @@ export class ProductService {
     // We could have a dedicated endpoint for this, but for now we'll extract them from products
     return this.getProducts().pipe(
       map((products) => {
-        const categories = [...new Set(products.map((p) => p.category))];
-        return categories;
+        const uniqueCategories = [...new Set(products.map((p) => p.category))];
+        return uniqueCategories.sort(); // Sort categories alphabetically
       }),
       catchError((error) => {
         console.error('Error fetching categories', error);
-        return throwError(
-          () => new Error('Failed to fetch categories. Please try again later.')
-        );
+        // Provide default categories if API call fails
+        return of(['tops', 'bottoms', 'dresses', 'accessories', 'outerwear']);
       })
     );
   }
@@ -87,37 +152,63 @@ export class ProductService {
     filter: ProductFilter = {},
     sortOption: SortOption = 'name-asc'
   ): Observable<Product[]> {
-    let params = new HttpParams();
+    // Client-side filtering as a fallback
+    return this.getProducts().pipe(
+      map((products) => {
+        // Start with all products
+        let filtered = [...products];
 
-    if (filter.category) {
-      params = params.set('category', filter.category);
-    }
+        // Apply category filter
+        if (filter.category) {
+          filtered = filtered.filter((p) => p.category === filter.category);
+        }
 
-    if (filter.minPrice !== undefined) {
-      params = params.set('minPrice', filter.minPrice.toString());
-    }
+        // Apply price filters
+        if (filter.minPrice !== undefined) {
+          filtered = filtered.filter((p) => p.price >= filter.minPrice!);
+        }
 
-    if (filter.maxPrice !== undefined) {
-      params = params.set('maxPrice', filter.maxPrice.toString());
-    }
+        if (filter.maxPrice !== undefined) {
+          filtered = filtered.filter((p) => p.price <= filter.maxPrice!);
+        }
 
-    if (filter.sizes && filter.sizes.length > 0) {
-      filter.sizes.forEach((size) => {
-        params = params.append('sizes', size);
-      });
-    }
+        // Apply size filter
+        if (filter.sizes && filter.sizes.length > 0) {
+          filtered = filtered.filter((p) =>
+            filter.sizes!.some((size) => p.sizes.includes(size))
+          );
+        }
 
-    if (filter.colors && filter.colors.length > 0) {
-      filter.colors.forEach((color) => {
-        params = params.append('colors', color);
-      });
-    }
+        // Apply color filter
+        if (filter.colors && filter.colors.length > 0) {
+          filtered = filtered.filter((p) =>
+            filter.colors!.some((color) => p.colors.includes(color))
+          );
+        }
 
-    if (filter.inStock !== undefined) {
-      params = params.set('inStock', filter.inStock.toString());
-    }
+        // Apply in stock filter
+        if (filter.inStock !== undefined) {
+          filtered = filtered.filter((p) => p.inStock === filter.inStock);
+        }
 
-    return this.http.get<Product[]>(`${this.apiUrl}/filter`, { params }).pipe(
+        // Apply sorting
+        switch (sortOption) {
+          case 'name-asc':
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          case 'name-desc':
+            filtered.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+          case 'price-asc':
+            filtered.sort((a, b) => a.price - b.price);
+            break;
+          case 'price-desc':
+            filtered.sort((a, b) => b.price - a.price);
+            break;
+        }
+
+        return filtered;
+      }),
       catchError((error) => {
         console.error('Error filtering products', error);
         return throwError(
@@ -128,9 +219,22 @@ export class ProductService {
   }
 
   getRecommendedProducts(product: Product): Observable<Product[]> {
-    // For now, we'll get related products by category
+    // Get related products by category
     return this.getProductsByCategory(product.category).pipe(
-      map((products) => products.filter((p) => p.id !== product.id).slice(0, 4))
+      map((products) =>
+        products.filter((p) => p.id !== product.id).slice(0, 4)
+      ),
+      catchError(() => {
+        // If category filtering fails, return random products
+        return this.getProducts().pipe(
+          map((products) => {
+            return products
+              .filter((p) => p.id !== product.id)
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 4);
+          })
+        );
+      })
     );
   }
 }
