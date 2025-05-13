@@ -1,0 +1,16 @@
+W:\.NET\projects\Stylique\Stylique.Infrastructure\bin\Debug\net9.0\Stylique.Infrastructure.deps.json
+W:\.NET\projects\Stylique\Stylique.Infrastructure\bin\Debug\net9.0\Stylique.Infrastructure.dll
+W:\.NET\projects\Stylique\Stylique.Infrastructure\bin\Debug\net9.0\Stylique.Infrastructure.pdb
+W:\.NET\projects\Stylique\Stylique.Infrastructure\bin\Debug\net9.0\Stylique.Core.dll
+W:\.NET\projects\Stylique\Stylique.Infrastructure\bin\Debug\net9.0\Stylique.Core.pdb
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.csproj.AssemblyReference.cache
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.AssemblyInfoInputs.cache
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.AssemblyInfo.cs
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.csproj.CoreCompileInputs.cache
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.sourcelink.json
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.8A17310E.Up2Date
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.dll
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\refint\Stylique.Infrastructure.dll
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\Stylique.Infrastructure.pdb
+W:\.NET\projects\Stylique\Stylique.Infrastructure\obj\Debug\net9.0\ref\Stylique.Infrastructure.dll

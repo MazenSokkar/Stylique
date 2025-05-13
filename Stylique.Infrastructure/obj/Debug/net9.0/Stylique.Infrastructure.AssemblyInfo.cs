@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Stylique.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81cdc03dded864be4d846441148ebccf0c6a16fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18094765ddd2db6549e61bbf79db7c77ba51b7e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Stylique.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Stylique.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

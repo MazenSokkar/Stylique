@@ -1,0 +1,12 @@
+W:\.NET\projects\Stylique\Stylique.Core\bin\Debug\net9.0\Stylique.Core.deps.json
+W:\.NET\projects\Stylique\Stylique.Core\bin\Debug\net9.0\Stylique.Core.dll
+W:\.NET\projects\Stylique\Stylique.Core\bin\Debug\net9.0\Stylique.Core.pdb
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.GeneratedMSBuildEditorConfig.editorconfig
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.AssemblyInfoInputs.cache
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.AssemblyInfo.cs
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.csproj.CoreCompileInputs.cache
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.sourcelink.json
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.dll
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\refint\Stylique.Core.dll
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\Stylique.Core.pdb
+W:\.NET\projects\Stylique\Stylique.Core\obj\Debug\net9.0\ref\Stylique.Core.dll
